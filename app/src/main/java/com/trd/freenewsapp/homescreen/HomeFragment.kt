@@ -5,10 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+//import androidx.appcompat.R
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.trd.freenewsapp.R
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentHomeBinding
 import com.trd.freenewsapp.homescreen.NewsState.*
@@ -40,13 +46,45 @@ class HomeFragment : Fragment()/*, NoMatchesFoundListener*/ {
 //        setHasOptionsMenu(true)
         binding = initialBinding(inflater, container)
         initAdapter()
-        homeAdapter?.setData(listOf(NewsItem("hello1"), NewsItem("hello2")))
+//        homeAdapter?.setData(listOf(NewsItem("hello1"), NewsItem("hello2")))
         loadNews()
+        initSearch()
 //        initActionBar()
 //        setHomeAdapter()
 //        initRecyclerView()
         initObservers()
         return binding.root
+    }
+
+    private fun initSearch() {
+        val searchView = binding.searchHome
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
+        val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+
+        val searchEditText =
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        val searchViewTextColor = ContextCompat.getColor(requireContext(), R.color.text_color)
+//        val hintTextColor = ContextCompat.getColor(requireContext(), R.color.secondary)
+        searchEditText.setTextColor(searchViewTextColor)
+
+        val color = requireContext().getColor(R.color.text_color)
+        searchIcon.setColorFilter(color)
+        closeIcon.setColorFilter(color)
+        setOnQueryTextListener(searchView)
+    }
+
+    private fun setOnQueryTextListener(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.loadNewsByQuery(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                toastUtils.showToast(newText?:"empty ")
+                return false
+            }
+        })
     }
 
     private fun initAdapter() {
@@ -76,7 +114,7 @@ class HomeFragment : Fragment()/*, NoMatchesFoundListener*/ {
     }
 
     private fun loadNews() {
-//        viewModel.loadNews()
+        viewModel.loadNews()
     }
 
     private fun initObservers() {
@@ -86,7 +124,9 @@ class HomeFragment : Fragment()/*, NoMatchesFoundListener*/ {
     private fun observeNewsLoading() {
         viewModel.newsLiveData.observe(viewLifecycleOwner) { newsState ->
             when (newsState) {
-                is NewsLoadingError -> {/*TODO show toast here*/
+                is NewsLoadingError -> {
+                    showProgressBar(false)
+                    toastUtils.showNetworkErrorToast()
                 }
                 is NewsLoading -> {
                     showProgressBar(true)

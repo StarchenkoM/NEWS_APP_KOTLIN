@@ -38,6 +38,7 @@ class HomeAdapter(private val context: Context, private val imageLoader: ImageLo
 
     fun setData(items: List<NewsItem>) {
         newsItems = items
+        notifyDataSetChanged()
 //        this.items = items as MutableList<NewsItem>
     }
 

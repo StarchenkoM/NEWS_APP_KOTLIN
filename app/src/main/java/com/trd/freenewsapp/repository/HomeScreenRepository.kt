@@ -6,5 +6,7 @@ import retrofit2.Response
 
 interface HomeScreenRepository {
     suspend fun getNewsFromApi(): Response<NewsApiResponse>
+    suspend fun getNewsFromApiByQuery(query: String): Response<NewsApiResponse>
     suspend fun loadNews(): NewsState
+    suspend fun loadNewsByQuery(query: String): NewsState
 }

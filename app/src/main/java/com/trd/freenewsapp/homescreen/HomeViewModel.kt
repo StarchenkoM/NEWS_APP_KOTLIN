@@ -30,4 +30,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun loadNewsByQuery(query: String) {
+        _newsLiveData.postValue(NewsLoading)
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = loadNewsUseCase.loadNewsByQuery(query)
+            Log.i(LOG_TAG, "loadNews:HomeViewModel result = $result")
+            _newsLiveData.postValue(result)
+        }
+    }
+
 }

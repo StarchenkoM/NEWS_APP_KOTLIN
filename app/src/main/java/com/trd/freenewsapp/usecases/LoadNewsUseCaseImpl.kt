@@ -7,4 +7,8 @@ class LoadNewsUseCaseImpl(private val repository: HomeScreenRepository) : LoadNe
     override suspend fun loadNews(): NewsState {
         return repository.loadNews()
     }
+
+    override suspend fun loadNewsByQuery(query: String): NewsState {
+        return repository.loadNewsByQuery(query)
+    }
 }

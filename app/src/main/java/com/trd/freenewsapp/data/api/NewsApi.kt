@@ -17,6 +17,15 @@ interface NewsApi {
         @Query("apiKey") apiKey: String = API_KEY,
     ): Response<NewsApiResponse>
 
+    @GET("v2/top-headlines")
+    suspend fun getNewsByQuery(
+        @Query("category") category: String = DEFAULT_CATEGORY,
+        @Query("q") query: String,
+        @Query("pageSize") pageSize: String = DEFAULT_PAGE_SIZE,
+        @Query("page") page: String = DEFAULT_PAGE,
+        @Query("apiKey") apiKey: String = API_KEY,
+    ): Response<NewsApiResponse>
+
     companion object {
         const val DEFAULT_CATEGORY = "general"
         const val DEFAULT_PAGE_SIZE = "10"

@@ -40,6 +40,11 @@
         <item name="cornerFamily">rounded</item>
     </style>-->
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- changing my icon, its color and stuff.. -->
+<!--        <item name="tint">@drawable/ic_search</item>-->
+    </style>
+
 
 </resources>
 
