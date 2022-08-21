@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="homescreen_action_bar_height">58dp</dimen>
+    <dimen name="news_item_height">378dp</dimen>
+</resources>

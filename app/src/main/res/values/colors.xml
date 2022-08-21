@@ -7,4 +7,29 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+
+    <color name="primary">#206CFF</color>
+    <color name="primary_01">#1956cc</color>
+    <color name="secondary">#D3EFFF</color>
+    <color name="secondary_01">#a8bfcc</color>
+    <color name="text">#0F0F0F</color>
+    <color name="text2">#898989</color>
+    <color name="lines">#D9D9D9</color>
+    <color name="background">#F5F5F5</color>
+
+
+
+    <color name="newsapp_accent_active">#DAB308</color>
+    <color name="newsapp_primary_01">#027DA4</color>
+    <color name="newsapp_primary_02">#306474</color>
+    <color name="newsapp_primary_03">#F2FAFF</color>
+    <color name="newsapp_primary_04">#FDFEFF</color>
+    <color name="newsapp_neutral_01">#5A767E</color>
+    <color name="newsapp_neutral_02">#C9D3D7</color>
+    <color name="newsapp_neutral_03">#F1F4F5</color>
+    <color name="text_color">#0F0F0F</color>
+    <color name="newsapp_error">#CA4D31</color>
+    <color name="newsapp_date_picker_header_background">#306474</color>
 </resources>

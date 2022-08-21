@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Toolbar ===============-->
+<!--    <style name="NewsAppToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="elevation">0dp</item>
+        <item name="background">@color/newsapp_background</item>
+        <item name="navigationIcon">@drawable/ic_app_icon</item>
+        <item name="navigationIconTint">@color/newsapp_primary_01</item>
+        <item name="titleTextColor">@color/newsapp_primary_01</item>
+        <item name="titleTextAppearance">@style/NewsAppToolbar.TitleAppearance</item>
+    </style>
+
+    <style name="NewsAppToolbar.TitleAppearance" parent="TextAppearance.AppCompat">
+&lt;!&ndash;        <item name="fontFamily">@font/poppins_bold</item>&ndash;&gt;
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="NewsAppToolbarHeader" parent="Widget.MaterialComponents.Toolbar">
+        <item name="elevation">0dp</item>
+        <item name="android:background">@color/newsapp_neutral_03</item>
+        <item name="titleTextColor">@color/newsapp_primary_02</item>
+        <item name="collapseIcon">@drawable/ic_app_icon</item>
+        <item name="colorOnPrimary">@color/newsapp_primary_01</item>
+        <item name="titleTextAppearance">@style/NewsAppToolbarHeader.TitleAppearance</item>
+    </style>
+
+    <style name="NewsAppToolbarHeader.TitleAppearance" parent="TextAppearance.AppCompat">
+&lt;!&ndash;        <item name="fontFamily">@font/poppins_semibold</item>&ndash;&gt;
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>-->
+
+<!--    <style name="ImageView.Corner" parent="">
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>-->
+
+
+</resources>
+
