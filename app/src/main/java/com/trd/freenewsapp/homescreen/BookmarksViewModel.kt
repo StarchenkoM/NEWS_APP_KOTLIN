@@ -9,8 +9,6 @@ import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.states.BookmarksState
 import com.trd.freenewsapp.states.BookmarksState.BookmarksLoading
-import com.trd.freenewsapp.states.NewsState
-import com.trd.freenewsapp.states.NewsState.NewsLoading
 import com.trd.freenewsapp.usecases.AddBookmarkUseCase
 import com.trd.freenewsapp.usecases.LoadBookmarksUseCase
 import com.trd.freenewsapp.usecases.RemoveBookmarkUseCase

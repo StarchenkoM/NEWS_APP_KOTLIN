@@ -1,10 +1,7 @@
 package com.trd.freenewsapp.di
 
 import android.content.Context
-import com.trd.freenewsapp.utils.ImageLoader
-import com.trd.freenewsapp.utils.ImageLoaderImpl
-import com.trd.freenewsapp.utils.ToastUtils
-import com.trd.freenewsapp.utils.ToastUtilsImpl
+import com.trd.freenewsapp.utils.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,18 +13,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class UtilsModule {
 
-
     @Singleton
     @Provides
-    fun provideToastUtils(@ApplicationContext context: Context): ToastUtils = ToastUtilsImpl(context)
-
-
+    fun provideToastUtils(@ApplicationContext context: Context): ToastUtils =
+        ToastUtilsImpl(context)
 
     @Provides
-    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader = ImageLoaderImpl(context)
+    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader =
+        ImageLoaderImpl(context)
 
-/*    //WebView loader Util
     @Provides
-    fun provideWebViewLoader(): WebViewLoader = WebViewLoaderImpl()*/
+    fun provideWebViewLoader(): WebViewLoader = WebViewLoaderImpl()
 
 }

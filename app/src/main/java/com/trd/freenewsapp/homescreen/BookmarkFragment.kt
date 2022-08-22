@@ -1,6 +1,7 @@
 package com.trd.freenewsapp.homescreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trd.freenewsapp.R
+import com.trd.freenewsapp.constants.Constants
+import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentBookmarksBinding
 import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
-import com.trd.freenewsapp.homescreen.adapters.HomeAdapter
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
@@ -44,7 +47,7 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        setHasOptionsMenu(true)
+        Log.i(LOG_TAG, "onCreateView: BookmarkFragment")
         binding = initBinding(inflater, container)
         initAdapter()
         initRecyclerView()
@@ -67,8 +70,19 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
     }
 
     private fun loadBookmarks() {
-//        viewModel.loadBookmarks()
-        adapter?.setData(listOf(NewsItem("first"),NewsItem("red"), NewsItem("hello2"), NewsItem("hello3")))
+        viewModel.loadBookmarks()
+//        testData()
+    }
+
+    private fun testData() {
+        adapter?.setData(
+            listOf(
+                NewsItem("first"),
+                NewsItem("red"),
+                NewsItem("hello2"),
+                NewsItem("hello3")
+            )
+        )
     }
 
 
@@ -114,6 +128,8 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun initObservers() {
         viewModel.bookmarksLiveData.observe(viewLifecycleOwner) { bookmarkState ->
+            Log.i(LOG_TAG, "onCreateView: BookmarkFragment initObservers() bookmarkState = $bookmarkState")
+
             when (bookmarkState) {
                 is BookmarksLoadingError -> {
                     showProgressBar(false)
@@ -169,8 +185,10 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     }
 
-    override fun sourceBtnClicked() {
-
+    override fun sourceBtnClicked(url: String) {
+        val action = BookmarkFragmentDirections.openWebView(url)
+        val navController = findNavController()
+        navController.navigate(action)
     }
 
 

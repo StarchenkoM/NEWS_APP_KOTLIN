@@ -1,7 +1,6 @@
 package com.trd.freenewsapp.repository
 
 import android.util.Log
-import com.trd.freenewsapp.constants.Constants
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.database.NewsDao
 import com.trd.freenewsapp.database.NewsMapper

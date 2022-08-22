@@ -1,14 +1,19 @@
 package com.trd.freenewsapp.homescreen.adapters
 
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.trd.freenewsapp.R
+import com.trd.freenewsapp.constants.Constants
+import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.NewsItemBinding
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
 import com.trd.freenewsapp.listeners.SourceButtonsListener
 import com.trd.freenewsapp.utils.ImageLoader
+import com.trd.freenewsapp.utils.ToastUtils
+import javax.inject.Inject
 
 class NewsItemViewHolder(
     private val binding: NewsItemBinding,
@@ -22,7 +27,7 @@ class NewsItemViewHolder(
         setNewsItemComponents(item)
         handleBookmarkIconClick(item)
         handleShareIconClick()
-        handleGoToSourceIconClick()
+        handleGoToSourceIconClick(item)
     }
 
 
@@ -37,8 +42,15 @@ class NewsItemViewHolder(
         binding.icShare.setOnClickListener { showMessage("handleShareIconClick()") }
     }
 
-    private fun handleGoToSourceIconClick() {
-        binding.icGoToSource.setOnClickListener { showMessage("handleGoToSourceIconClick()") }
+    private fun handleGoToSourceIconClick(item: NewsItem) {
+        binding.icGoToSource.setOnClickListener {
+            Log.i(LOG_TAG, "handleGoToSourceIconClick: NewsItemViewHolder articleUrl = ${item.articleUrl}")
+            if (item.articleUrl.isNotBlank()) {
+                sourceButtonsListener.sourceBtnClicked(item.articleUrl)
+            } else {
+                showMessage(getMessage(NO_SOURCE_MESSAGE))
+            }
+        }
     }
 
     private fun setNewsItemComponents(item: NewsItem) {

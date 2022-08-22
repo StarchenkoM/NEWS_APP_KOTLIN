@@ -1,5 +1,5 @@
 package com.trd.freenewsapp.listeners
 
 interface SourceButtonsListener {
-    fun sourceBtnClicked()
+    fun sourceBtnClicked(url: String)
 }

@@ -17,21 +17,43 @@
         android:label=""
         tools:layout="@layout/fragment_bookmarks" />
 
+    <fragment
+        android:id="@+id/webview_fragment"
+        android:name="com.trd.freenewsapp.homescreen.WebViewFragment"
+        android:label=""
+        tools:layout="@layout/fragment_webview">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+    <!-- app:popUpTo="@id/home_tab"
+        app:popUpToSaveState="true"
+        app:restoreState="true"-->
+
+    <action
+        android:id="@+id/openWebView"
+        app:destination="@id/webview_fragment">
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </action>
+
 
 </navigation>
 
 
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/homescreen_nav_graph"
+        app:startDestination="@id/home_tab">
 
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homescreen_nav_graph"
-    app:startDestination="@id/home_tab">
-
-    <include app:graph="@navigation/home_nav"/>
-    <include app:graph="@navigation/bookmarks_nav"/>
+        <include app:graph="@navigation/home_nav"/>
+        <include app:graph="@navigation/bookmarks_nav"/>
 
 
-</navigation>-->
+    </navigation>-->

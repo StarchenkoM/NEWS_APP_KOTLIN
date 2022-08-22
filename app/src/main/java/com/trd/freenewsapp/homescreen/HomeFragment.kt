@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trd.freenewsapp.R
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
@@ -26,9 +28,12 @@ import com.trd.freenewsapp.states.BookmarksState
 import com.trd.freenewsapp.states.NewsState.*
 import com.trd.freenewsapp.utils.ImageLoader
 import com.trd.freenewsapp.utils.ToastUtils
+import com.trd.freenewsapp.utils.WebViewLoader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.properties.Delegates
+import androidx.navigation.ui.setupWithNavController
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
@@ -171,10 +176,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     }
 
 
-    override fun onResume() {
-        super.onResume()
-//        viewModel.loadNews()
-    }
 
     override fun addBookmark(newsItem: NewsItem) {
         viewModel.addBookmark(newsItem)
@@ -186,7 +187,10 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     override fun shareBtnClicked() {
     }
 
-    override fun sourceBtnClicked() {
+    override fun sourceBtnClicked(url: String) {
+        val action = HomeFragmentDirections.openWebView(url)
+        val navController = findNavController()
+        navController.navigate(action)
     }
 
 
