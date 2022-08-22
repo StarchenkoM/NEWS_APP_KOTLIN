@@ -38,14 +38,7 @@ class BookmarksViewModel @Inject constructor(
         }
     }
 
-    fun loadBookmarksByQuery(query: String) {
-        _bookmarksLiveData.postValue(BookmarksLoading)
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = loadBookmarksUseCase.loadBookmarksByQuery(query)
-            Log.i(LOG_TAG, "loadBookmarksByQuery:BookmarksViewModel result = $result")
-            _bookmarksLiveData.postValue(result)
-        }
-    }
+
 
 
     fun addBookmark(newsItem: NewsItem) {

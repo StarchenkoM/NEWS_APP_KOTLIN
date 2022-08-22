@@ -8,9 +8,6 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNewsToDb(news: NewsRoomEntity): Long
 
-    @Query("SELECT * FROM News_table WHERE title = :newsId ")
-    fun getNewsById(newsId: String): NewsRoomEntity?
-
     @Query("SELECT * FROM News_table")
     fun getAllBookmarksAsList(): List<NewsRoomEntity>
 

@@ -25,9 +25,6 @@ class BookmarksRepositoryImpl(
         return handleBDLoading()
     }
 
-    override suspend fun loadBookmarksByQuery(query: String): BookmarksState {
-        return handleDBLoadingByQuery(query)
-    }
 
     override suspend fun addBookmark(newsItem: NewsItem): BookmarksState {
         val bookmark = newsMapper.mapNewsItemToDBItem(newsItem)
@@ -71,17 +68,6 @@ class BookmarksRepositoryImpl(
         return ioCoroutineScope.async(Dispatchers.IO) {
             newsDao.getAllBookmarksAsList()
         }.await()
-    }
-
-    override suspend fun handleDBLoadingByQuery(query: String): BookmarksState {
-        val bookmarks = articlesFromDB()
-        Log.i(LOG_TAG, "handleDBLoadingByQuery:BookmarksRepositoryImpl bookmarks = $bookmarks")
-        return if (bookmarks.isNullOrEmpty()) {
-            BookmarksLoadingError
-        } else {
-            val result = bookmarks.map { newsMapper.mapDBItemToNewsItem(it) }
-            BookmarksLoadingSuccess(result)
-        }
     }
 
 

@@ -8,7 +8,4 @@ class LoadBookmarksUseCaseImpl(private val repository: BookmarksRepository) : Lo
         return repository.loadBookmarks()
     }
 
-    override suspend fun loadBookmarksByQuery(query: String): BookmarksState {
-        return repository.loadBookmarksByQuery(query)
-    }
 }

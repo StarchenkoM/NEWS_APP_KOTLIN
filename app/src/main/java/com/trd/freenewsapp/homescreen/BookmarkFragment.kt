@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.trd.freenewsapp.R
 import com.trd.freenewsapp.databinding.FragmentBookmarksBinding
 import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
 import com.trd.freenewsapp.homescreen.adapters.HomeAdapter
@@ -48,6 +53,7 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 //        setBookmarkAdapter()
 //        initListeners()
         initObservers()
+        initSearch()
         return binding.root
     }
 
@@ -61,8 +67,8 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
     }
 
     private fun loadBookmarks() {
-        viewModel.loadBookmarks()
-//        adapter?.setData(listOf(NewsItem(), NewsItem("hello2"), NewsItem("hello3")))
+//        viewModel.loadBookmarks()
+        adapter?.setData(listOf(NewsItem("first"),NewsItem("red"), NewsItem("hello2"), NewsItem("hello3")))
     }
 
 
@@ -74,8 +80,36 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         }
     }
 
-    private fun initListeners() {
+    private fun initSearch() {
+        val searchView = binding.searchBookmarks
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
+        val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
 
+        val searchEditText =
+            searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        val searchViewTextColor = ContextCompat.getColor(requireContext(), R.color.text_color)
+//        val hintTextColor = ContextCompat.getColor(requireContext(), R.color.secondary)
+        searchEditText.setTextColor(searchViewTextColor)
+
+        val color = requireContext().getColor(R.color.text_color)
+        searchIcon.setColorFilter(color)
+        closeIcon.setColorFilter(color)
+        setOnQueryTextListener(searchView)
+    }
+
+    private fun setOnQueryTextListener(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//                query?.let { viewModel.loadBookmarksByQuery(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                toastUtils.showToast(newText?:"empty ")
+                adapter?.filter?.filter(newText)
+                return false
+            }
+        })
     }
 
     private fun initObservers() {
