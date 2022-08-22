@@ -2,4 +2,6 @@
 <resources>
     <dimen name="homescreen_action_bar_height">58dp</dimen>
     <dimen name="news_item_height">378dp</dimen>
+    <dimen name="elevation">6dp</dimen>
+    <dimen name="search_height">38dp</dimen>
 </resources>
