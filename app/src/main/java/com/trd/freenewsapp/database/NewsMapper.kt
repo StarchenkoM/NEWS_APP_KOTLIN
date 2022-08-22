@@ -2,8 +2,7 @@ package com.trd.freenewsapp.database
 
 import com.trd.freenewsapp.data.ArticleItemApi
 import com.trd.freenewsapp.data.ArticleSource
-import com.trd.freenewsapp.data.NewsApiResponse
-import com.trd.freenewsapp.homescreen.adapter.NewsItem
+import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import javax.inject.Inject
 
 class NewsMapper @Inject constructor() {

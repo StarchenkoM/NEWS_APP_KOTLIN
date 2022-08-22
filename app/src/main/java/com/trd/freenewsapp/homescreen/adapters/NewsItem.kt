@@ -1,4 +1,4 @@
-package com.trd.freenewsapp.homescreen.adapter
+package com.trd.freenewsapp.homescreen.adapters
 
 data class NewsItem(
     var title: String = "",

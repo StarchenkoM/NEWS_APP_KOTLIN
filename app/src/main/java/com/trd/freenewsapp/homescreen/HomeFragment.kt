@@ -18,8 +18,7 @@ import com.trd.freenewsapp.R
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentHomeBinding
 import com.trd.freenewsapp.homescreen.NewsState.*
-import com.trd.freenewsapp.homescreen.adapter.HomeAdapter
-import com.trd.freenewsapp.homescreen.adapter.NewsItem
+import com.trd.freenewsapp.homescreen.adapters.HomeAdapter
 import com.trd.freenewsapp.utils.ImageLoader
 import com.trd.freenewsapp.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint

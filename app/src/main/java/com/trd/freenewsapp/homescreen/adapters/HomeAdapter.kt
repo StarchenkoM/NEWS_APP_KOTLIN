@@ -1,4 +1,4 @@
-package com.trd.freenewsapp.homescreen.adapter
+package com.trd.freenewsapp.homescreen.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

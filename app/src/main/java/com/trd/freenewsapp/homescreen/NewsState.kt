@@ -1,6 +1,6 @@
 package com.trd.freenewsapp.homescreen
 
-import com.trd.freenewsapp.homescreen.adapter.NewsItem
+import com.trd.freenewsapp.homescreen.adapters.NewsItem
 
 sealed class NewsState {
     object NewsLoading : NewsState()

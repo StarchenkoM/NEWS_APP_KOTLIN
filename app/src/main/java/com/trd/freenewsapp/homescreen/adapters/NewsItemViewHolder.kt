@@ -1,4 +1,4 @@
-package com.trd.freenewsapp.homescreen.adapter
+package com.trd.freenewsapp.homescreen.adapters
 
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
