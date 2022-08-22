@@ -2,10 +2,11 @@ package com.trd.freenewsapp.di
 
 import com.trd.freenewsapp.database.NewsDao
 import com.trd.freenewsapp.database.NewsMapper
+import com.trd.freenewsapp.repository.BookmarksRepository
+import com.trd.freenewsapp.repository.BookmarksRepositoryImpl
 import com.trd.freenewsapp.repository.HomeScreenRepository
 import com.trd.freenewsapp.repository.HomeScreenRepositoryImpl
-import com.trd.freenewsapp.usecases.LoadNewsUseCase
-import com.trd.freenewsapp.usecases.LoadNewsUseCaseImpl
+import com.trd.freenewsapp.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +18,7 @@ import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+class NewsModule {
 
 
     @IoCoroutineScope
@@ -25,8 +26,7 @@ class AppModule {
     fun providesIoDispatcher(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
 
-    //Provide Repositories
-
+    //Repositories
     @Provides
     fun provideHomeScreenRepository(
         newsMapper: NewsMapper,
@@ -34,21 +34,33 @@ class AppModule {
     ): HomeScreenRepository =
         HomeScreenRepositoryImpl(newsMapper, newsDao)
 
-/*    @Provides
-    fun provideOpportunityRepository(
-            roverMapper: RoverMapper,
-            opportunityDao: OpportunityDao,
-    ): OpportunityRepository =
-            OpportunityRepositoryImpl(roverMapper, opportunityDao)*/
+    @Provides
+    fun provideBookmarksRepository(
+        newsMapper: NewsMapper,
+        newsDao: NewsDao,
+        @IoCoroutineScope ioCoroutineScope: CoroutineScope,
+    ): BookmarksRepository =
+        BookmarksRepositoryImpl(newsMapper, newsDao, ioCoroutineScope)
 
-    //Rovers Use Cases
+
+    //Use Cases
     @Provides
     fun provideLoadNewsUseCase(repository: HomeScreenRepository): LoadNewsUseCase =
         LoadNewsUseCaseImpl(repository)
 
+    @Provides
+    fun provideLoadBookmarksUseCase(repository: BookmarksRepository): LoadBookmarksUseCase =
+        LoadBookmarksUseCaseImpl(repository)
+
+    @Provides
+    fun provideAddBookmarkUseCase(repository: BookmarksRepository): AddBookmarkUseCase =
+        AddBookmarkUseCaseImpl(repository)
+
+    @Provides
+    fun provideRemoveBookmarkUseCase(repository: BookmarksRepository): RemoveBookmarkUseCase =
+        RemoveBookmarkUseCaseImpl(repository)
 
 }
-
 
 @Retention(AnnotationRetention.BINARY)
 @Qualifier

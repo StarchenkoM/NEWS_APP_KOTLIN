@@ -6,12 +6,15 @@ import androidx.room.*
 interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNewsToDb(news: NewsRoomEntity)
+    fun insertNewsToDb(news: NewsRoomEntity): Long
 
     @Query("SELECT * FROM News_table WHERE title = :newsId ")
     fun getNewsById(newsId: String): NewsRoomEntity?
 
-    @Query("DELETE FROM News_table WHERE title =:newsId")
-    fun deleteNewsEntity(newsId: String)
+    @Query("SELECT * FROM News_table")
+    fun getAllBookmarksAsList(): List<NewsRoomEntity>
+
+    @Query("DELETE FROM News_table WHERE title =:title")
+    fun deleteNewsEntity(title: String): Int
 
 }

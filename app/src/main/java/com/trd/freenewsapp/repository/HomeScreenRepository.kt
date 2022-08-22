@@ -1,7 +1,7 @@
 package com.trd.freenewsapp.repository
 
 import com.trd.freenewsapp.data.NewsApiResponse
-import com.trd.freenewsapp.homescreen.NewsState
+import com.trd.freenewsapp.states.NewsState
 import retrofit2.Response
 
 interface HomeScreenRepository {

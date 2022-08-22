@@ -1,1 +1,3 @@
 1. Search delay in onQueryTextChange() method
+2. News loading pagination
+3. Check necessity of passing Context as parameter to adapters

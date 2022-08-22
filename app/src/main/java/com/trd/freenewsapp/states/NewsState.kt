@@ -1,4 +1,4 @@
-package com.trd.freenewsapp.homescreen
+package com.trd.freenewsapp.states
 
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 

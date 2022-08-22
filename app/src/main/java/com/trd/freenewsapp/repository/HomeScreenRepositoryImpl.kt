@@ -6,9 +6,9 @@ import com.trd.freenewsapp.data.NewsApiResponse
 import com.trd.freenewsapp.data.api.RetrofitInstance
 import com.trd.freenewsapp.database.NewsDao
 import com.trd.freenewsapp.database.NewsMapper
-import com.trd.freenewsapp.homescreen.NewsState
-import com.trd.freenewsapp.homescreen.NewsState.NewsLoadingError
-import com.trd.freenewsapp.homescreen.NewsState.NewsLoadingSuccess
+import com.trd.freenewsapp.states.NewsState
+import com.trd.freenewsapp.states.NewsState.NewsLoadingError
+import com.trd.freenewsapp.states.NewsState.NewsLoadingSuccess
 import retrofit2.Response
 
 class HomeScreenRepositoryImpl(
@@ -35,7 +35,7 @@ class HomeScreenRepositoryImpl(
             Constants.LOG_TAG,
             "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
         )
-        val result = articlesApi?.map { newsMapper.mapToNewsItem(it) }
+        val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
 //        articlesApi?.let { putArticlesToDB(it) }
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }
@@ -50,7 +50,7 @@ class HomeScreenRepositoryImpl(
             Constants.LOG_TAG,
             "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
         )
-        val result = articlesApi?.map { newsMapper.mapToNewsItem(it) }
+        val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
 //        articlesApi?.let { putArticlesToDB(it) }
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }

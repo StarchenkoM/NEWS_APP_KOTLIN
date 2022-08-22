@@ -1,6 +1,6 @@
 package com.trd.freenewsapp.usecases
 
-import com.trd.freenewsapp.homescreen.NewsState
+import com.trd.freenewsapp.states.NewsState
 
 interface LoadNewsUseCase {
     suspend fun loadNews(): NewsState

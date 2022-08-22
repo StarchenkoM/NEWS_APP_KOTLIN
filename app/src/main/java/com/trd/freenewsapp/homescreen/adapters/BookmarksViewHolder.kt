@@ -10,7 +10,7 @@ import com.trd.freenewsapp.listeners.ShareButtonsListener
 import com.trd.freenewsapp.listeners.SourceButtonsListener
 import com.trd.freenewsapp.utils.ImageLoader
 
-class NewsItemViewHolder(
+class BookmarksViewHolder(
     private val binding: NewsItemBinding,
     private val imageLoader: ImageLoader,
     private val bookmarkButtonListener: BookmarkButtonListener,
@@ -29,7 +29,7 @@ class NewsItemViewHolder(
     private fun handleBookmarkIconClick(item: NewsItem) {
         binding.icBookmarkItem.setOnClickListener {
             showMessage("handleBookmarkIconClick()")
-            bookmarkButtonListener.addBookmark(item)
+            bookmarkButtonListener.removeBookmark(item)
         }
     }
 
