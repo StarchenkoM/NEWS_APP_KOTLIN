@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.trd.freenewsapp.R
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentHomeBinding
@@ -59,6 +60,7 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         initSearch()
 //        initActionBar()
 //        setHomeAdapter()
+        scrolledToBottomListener()
         initObservers()
         return binding.root
     }
@@ -205,5 +207,16 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         binding.noUserFoundTextView.isVisible = noMatchesFound
     }*/
 
+    private fun scrolledToBottomListener(){
+        binding.newsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(!recyclerView.canScrollVertically(1)){
+                    toastUtils.showToast("LAST")
+                }
+            }
+        })
+    }
 
 }

@@ -20,6 +20,8 @@ class BookmarksViewHolder(
     private val sourceButtonsListener: SourceButtonsListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private val context = binding.root.context
+
     fun bind(item: NewsItem) {
         setNewsItemComponents(item)
         handleBookmarkIconClick(item)
@@ -54,7 +56,8 @@ class BookmarksViewHolder(
 
     private fun setNewsItemComponents(item: NewsItem) {
         imageLoader.loadImage(item.imageUrl, binding.newsImage, R.drawable.ic_app_icon)
-
+        val color = this.context.getColor(R.color.primary)
+        binding.icBookmarkItem.setColorFilter(color)
         binding.titleTv.text =
             if (item.title.isNullOrBlank()) getMessage(NO_TITLE_MESSAGE) else item.title
         binding.descriptionTv.text =
@@ -64,11 +67,11 @@ class BookmarksViewHolder(
     }
 
     private fun getMessage(@StringRes messageId: Int): String {
-        return binding.root.context.resources.getString(messageId)
+        return this.context.resources.getString(messageId)
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(binding.root.context, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
