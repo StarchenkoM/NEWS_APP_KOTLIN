@@ -53,9 +53,6 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         initAdapter()
         initRecyclerView()
         loadBookmarks()
-//        initActionBar()
-//        setBookmarkAdapter()
-//        initListeners()
         initObservers()
         initSearch()
         return binding.root
@@ -66,8 +63,6 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun initAdapter() {
         adapter = BookmarksAdapter(requireContext(), imageLoader, this, this, this, this)
-//        binding.bookmarksRecyclerView.layoutManager = LinearLayoutManager(context)
-//        binding.bookmarksRecyclerView.adapter = adapter
     }
 
     private fun loadBookmarks() {
@@ -114,12 +109,10 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
     private fun setOnQueryTextListener(searchView: SearchView) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let { viewModel.loadBookmarksByQuery(it) }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                toastUtils.showToast(newText?:"empty ")
                 adapter?.filter?.filter(newText)
                 return false
             }
@@ -159,21 +152,6 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun showProgressBar(loaded: Boolean) {
         binding.bookmarksLoadingProgress.isVisible = loaded
-    }
-
-
-    private fun initActionBar() {
-/*        val toolbar = binding.bookmarksToolbar
-        toolbar.inflateMenu(R.menu.menu)
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)*/
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-//        viewModel.loadNews()
     }
 
     override fun addBookmark(newsItem: NewsItem) {

@@ -1,6 +1,5 @@
 package com.trd.freenewsapp.homescreen
 
-//import androidx.appcompat.R
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.appcompat.R.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -26,7 +24,7 @@ import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
 import com.trd.freenewsapp.listeners.SourceButtonsListener
-import com.trd.freenewsapp.states.BookmarksState
+import com.trd.freenewsapp.states.BookmarksState.BookmarkAdded
 import com.trd.freenewsapp.states.NewsState.*
 import com.trd.freenewsapp.utils.ImageLoader
 import com.trd.freenewsapp.utils.ToastUtils
@@ -37,7 +35,7 @@ import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
-    ShareButtonsListener/*, NoMatchesFoundListener*/ {
+    ShareButtonsListener {
     private var binding by Delegates.notNull<FragmentHomeBinding>()
     private val viewModel: HomeViewModel by viewModels()
     private var adapter: HomeAdapter? = null
@@ -53,14 +51,11 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         savedInstanceState: Bundle?
     ): View {
         Log.i(LOG_TAG, "onCreateView: HOME FRAGMENT")
-//        setHasOptionsMenu(true)
         binding = initBinding(inflater, container)
         initAdapter()
         initRecyclerView()
         loadNews()
         initSearch()
-//        initActionBar()
-//        setHomeAdapter()
         scrolledToBottomListener()
         initObservers()
         return binding.root
@@ -97,8 +92,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
 
     private fun initAdapter() {
         adapter = HomeAdapter(requireContext(), imageLoader, this, this, this)
-//        binding.newsRecyclerView.layoutManager = LinearLayoutManager(context)
-//        binding.newsRecyclerView.adapter = adapter
     }
 
     private fun initBinding(
@@ -110,7 +103,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
 
     private fun initRecyclerView() {
         binding.newsRecyclerView.apply {
-//            adapter = homeAdapter
             adapter = this@HomeFragment.adapter
             layoutManager = LinearLayoutManager(context)
             itemAnimator = null
@@ -119,7 +111,18 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
 
     private fun loadNews() {
 //        viewModel.loadNews()
-        adapter?.setData(listOf(NewsItem(), NewsItem("hello2"), NewsItem("hello3")))
+        testData()
+    }
+
+    private fun testData() {
+        adapter?.setData(
+            listOf(
+                NewsItem("first"),
+                NewsItem("red"),
+                NewsItem("hello2"),
+                NewsItem("hello3")
+            )
+        )
     }
 
     private fun initObservers() {
@@ -143,9 +146,7 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
                         LOG_TAG,
                         "observeNewsLoading: HOME FRAGMENT newsState.newsItems = ${newsState.newsItems}"
                     )
-                    val l = newsState.newsItems
-//                    homeAdapter?.setData(listOf(NewsItem("hello1"), NewsItem("hello2")))
-                    adapter?.setData(l)
+                    adapter?.setData(newsState.newsItems)
                 }
             }
         }
@@ -154,24 +155,16 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     private fun observeBookmarks() {
         viewModel.bookmarksLiveData.observe(viewLifecycleOwner) { bookmarkState ->
             when (bookmarkState) {
-                is BookmarksState.BookmarkAdded -> {
-                    toastUtils.showToast("Bookmark ADDED Home Fragment")
+                is BookmarkAdded -> {
+                    toastUtils.showToast(getString(R.string.bookmark_added_message))
                 }
+                else -> {}
             }
         }
     }
 
     private fun showProgressBar(loaded: Boolean) {
         binding.newsLoadingProgress.isVisible = loaded
-    }
-
-
-    private fun initActionBar() {
-/*        val toolbar = binding.newsToolbar
-        toolbar.inflateMenu(R.menu.menu)
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)*/
     }
 
 
@@ -200,10 +193,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         }
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_news_message)))
     }
-
-    /*override fun noMatchesFound(noMatchesFound: Boolean) {
-        binding.noUserFoundTextView.isVisible = noMatchesFound
-    }*/
 
     private fun scrolledToBottomListener() {
         binding.newsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
