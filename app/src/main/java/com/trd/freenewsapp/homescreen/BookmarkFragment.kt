@@ -1,5 +1,6 @@
 package com.trd.freenewsapp.homescreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentBookmarksBinding
 import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
@@ -128,7 +128,10 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun initObservers() {
         viewModel.bookmarksLiveData.observe(viewLifecycleOwner) { bookmarkState ->
-            Log.i(LOG_TAG, "onCreateView: BookmarkFragment initObservers() bookmarkState = $bookmarkState")
+            Log.i(
+                LOG_TAG,
+                "onCreateView: BookmarkFragment initObservers() bookmarkState = $bookmarkState"
+            )
 
             when (bookmarkState) {
                 is BookmarksLoadingError -> {
@@ -181,8 +184,8 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         viewModel.removeBookmark(newsItem)
     }
 
-    override fun shareBtnClicked() {
-
+    override fun shareBtnClicked(link: String) {
+        shareNewsLink(link)
     }
 
     override fun sourceBtnClicked(url: String) {
@@ -191,6 +194,14 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         navController.navigate(action)
     }
 
+    private fun shareNewsLink(link: String) {
+        val shareIntent = Intent().apply {
+            this.action = Intent.ACTION_SEND
+            this.putExtra(Intent.EXTRA_TEXT, link)
+            this.type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_news_message)))
+    }
 
     /*override fun noMatchesFound(noMatchesFound: Boolean) {
         binding.noUserFoundTextView.isVisible = noMatchesFound

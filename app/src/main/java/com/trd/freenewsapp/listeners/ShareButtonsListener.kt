@@ -1,5 +1,7 @@
 package com.trd.freenewsapp.listeners
 
+import android.content.Context
+
 interface ShareButtonsListener {
-    fun shareBtnClicked()
+    fun shareBtnClicked(link: String)
 }

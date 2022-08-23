@@ -5,15 +5,12 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.NewsItemBinding
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
 import com.trd.freenewsapp.listeners.SourceButtonsListener
 import com.trd.freenewsapp.utils.ImageLoader
-import com.trd.freenewsapp.utils.ToastUtils
-import javax.inject.Inject
 
 class NewsItemViewHolder(
     private val binding: NewsItemBinding,
@@ -26,7 +23,7 @@ class NewsItemViewHolder(
     fun bind(item: NewsItem) {
         setNewsItemComponents(item)
         handleBookmarkIconClick(item)
-        handleShareIconClick()
+        handleShareIconClick(item)
         handleGoToSourceIconClick(item)
     }
 
@@ -38,8 +35,10 @@ class NewsItemViewHolder(
         }
     }
 
-    private fun handleShareIconClick() {
-        binding.icShare.setOnClickListener { showMessage("handleShareIconClick()") }
+    private fun handleShareIconClick(item: NewsItem) {
+        binding.icShare.setOnClickListener { showMessage("handleShareIconClick()")
+            shareButtonsListener.shareBtnClicked(item.articleUrl)
+        }
     }
 
     private fun handleGoToSourceIconClick(item: NewsItem) {

@@ -1,6 +1,7 @@
 package com.trd.freenewsapp.homescreen
 
 //import androidx.appcompat.R
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trd.freenewsapp.R
@@ -28,11 +28,9 @@ import com.trd.freenewsapp.states.BookmarksState
 import com.trd.freenewsapp.states.NewsState.*
 import com.trd.freenewsapp.utils.ImageLoader
 import com.trd.freenewsapp.utils.ToastUtils
-import com.trd.freenewsapp.utils.WebViewLoader
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.properties.Delegates
-import androidx.navigation.ui.setupWithNavController
 
 
 @AndroidEntryPoint
@@ -184,7 +182,8 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     override fun removeBookmark(newsItem: NewsItem) {
     }
 
-    override fun shareBtnClicked() {
+    override fun shareBtnClicked(link: String) {
+        shareNewsLink(link)
     }
 
     override fun sourceBtnClicked(url: String) {
@@ -193,6 +192,14 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         navController.navigate(action)
     }
 
+    private fun shareNewsLink(link: String) {
+        val shareIntent = Intent().apply {
+            this.action = Intent.ACTION_SEND
+            this.putExtra(Intent.EXTRA_TEXT, link)
+            this.type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_news_message)))
+    }
 
     /*override fun noMatchesFound(noMatchesFound: Boolean) {
         binding.noUserFoundTextView.isVisible = noMatchesFound
