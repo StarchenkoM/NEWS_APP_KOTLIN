@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentBookmarksBinding
 import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
@@ -48,7 +47,6 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(LOG_TAG, "onCreateView: BookmarkFragment")
         binding = initBinding(inflater, container)
         initAdapter()
         initRecyclerView()
@@ -118,11 +116,6 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun initObservers() {
         viewModel.bookmarksLiveData.observe(viewLifecycleOwner) { bookmarkState ->
-            Log.i(
-                LOG_TAG,
-                "onCreateView: BookmarkFragment initObservers() bookmarkState = $bookmarkState"
-            )
-
             when (bookmarkState) {
                 is BookmarksLoadingError -> {
                     showProgressBar(false)

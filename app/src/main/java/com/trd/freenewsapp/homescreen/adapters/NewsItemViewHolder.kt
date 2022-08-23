@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.NewsItemBinding
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
@@ -44,10 +43,6 @@ class NewsItemViewHolder(
 
     private fun handleGoToSourceIconClick(item: NewsItem) {
         binding.icGoToSource.setOnClickListener {
-            Log.i(
-                LOG_TAG,
-                "handleGoToSourceIconClick: NewsItemViewHolder articleUrl = ${item.articleUrl}"
-            )
             if (item.articleUrl.isNotBlank()) {
                 sourceButtonsListener.sourceBtnClicked(item.articleUrl)
             } else {

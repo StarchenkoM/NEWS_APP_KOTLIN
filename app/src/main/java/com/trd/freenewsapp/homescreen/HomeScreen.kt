@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.ActivityHomeScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +28,6 @@ class HomeScreen : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavBar.setOnItemSelectedListener { item ->
-            Log.i(LOG_TAG, "HOMESCREEN initializeBottomNavigation() item = ${item.itemId}")
             NavigationUI.onNavDestinationSelected(item, navController)
         }
         binding.bottomNavBar.setupWithNavController(navController)

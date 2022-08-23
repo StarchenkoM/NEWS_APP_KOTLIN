@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.states.BookmarksState
 import com.trd.freenewsapp.states.BookmarksState.BookmarksLoading
@@ -31,7 +30,6 @@ class BookmarksViewModel @Inject constructor(
         _bookmarksLiveData.postValue(BookmarksLoading)
         viewModelScope.launch(Dispatchers.IO) {
             val result = loadBookmarksUseCase.loadBookmarks()
-            Log.i(LOG_TAG, "loadBookmarks:BookmarksViewModel result = $result")
             _bookmarksLiveData.postValue(result)
         }
     }
@@ -40,7 +38,6 @@ class BookmarksViewModel @Inject constructor(
     fun addBookmark(newsItem: NewsItem) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = addBookmarkUseCase.addBookmark(newsItem)
-            Log.i(LOG_TAG, "addBookmark:BookmarksViewModel result = $result")
             _bookmarksLiveData.postValue(result)
         }
 
@@ -49,7 +46,6 @@ class BookmarksViewModel @Inject constructor(
     fun removeBookmark(newsItem: NewsItem) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = removeBookmarkUseCase.removeBookmark(newsItem)
-            Log.i(LOG_TAG, "addBookmark:BookmarksViewModel result = $result")
             _bookmarksLiveData.postValue(result)
         }
     }

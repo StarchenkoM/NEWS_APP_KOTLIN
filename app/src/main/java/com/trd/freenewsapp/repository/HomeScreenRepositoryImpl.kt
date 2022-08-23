@@ -35,10 +35,6 @@ class HomeScreenRepositoryImpl(
 
     private suspend fun handleApiLoading(page: Int = 1): NewsState {
         val articlesApi = getNewsFromApi(page).body()?.articles
-        Log.i(
-            Constants.LOG_TAG,
-            "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
-        )
         val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }
@@ -49,10 +45,6 @@ class HomeScreenRepositoryImpl(
 
     private suspend fun handleApiLoadingByQuery(query: String): NewsState {
         val articlesApi = getNewsFromApiByQuery(query).body()?.articles
-        Log.i(
-            Constants.LOG_TAG,
-            "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
-        )
         val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }

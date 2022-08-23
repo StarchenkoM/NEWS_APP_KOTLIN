@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentWebviewBinding
 import com.trd.freenewsapp.utils.ToastUtils
 import com.trd.freenewsapp.utils.WebViewLoader
@@ -30,7 +29,6 @@ class WebViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(LOG_TAG, "onCreateView: WebViewFragment")
         binding = initBinding(inflater, container)
         loadContent()
         return binding.root

@@ -1,7 +1,6 @@
 package com.trd.freenewsapp.repository
 
 import android.util.Log
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.database.NewsDao
 import com.trd.freenewsapp.database.NewsMapper
 import com.trd.freenewsapp.database.NewsRoomEntity
@@ -54,7 +53,6 @@ class BookmarksRepositoryImpl(
 
     override suspend fun handleBDLoading(): BookmarksState {
         val bookmarks = articlesFromDB()
-        Log.i(LOG_TAG, "handleDBLoadingByQuery:BookmarksRepositoryImpl bookmarks = $bookmarks")
         return if (bookmarks.isNullOrEmpty()) {
             BookmarksLoadingError
         } else {

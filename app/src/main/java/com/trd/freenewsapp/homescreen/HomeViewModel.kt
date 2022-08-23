@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.states.BookmarksState
 import com.trd.freenewsapp.states.NewsState
@@ -35,7 +34,6 @@ class HomeViewModel @Inject constructor(
         _newsLiveData.postValue(NewsLoading)
         viewModelScope.launch(Dispatchers.IO) {
             val result = loadNewsUseCase.loadNews()
-            Log.i(LOG_TAG, "loadNews:HomeViewModel result = $result")
             _newsLiveData.postValue(result)
         }
     }
@@ -44,7 +42,6 @@ class HomeViewModel @Inject constructor(
         _newsLiveData.postValue(NewsLoading)
         viewModelScope.launch(Dispatchers.IO) {
             val result = loadNewsUseCase.loadNewsByQuery(query)
-            Log.i(LOG_TAG, "loadNews:HomeViewModel result = $result")
             _newsLiveData.postValue(result)
         }
     }
@@ -52,7 +49,6 @@ class HomeViewModel @Inject constructor(
     fun addBookmark(newsItem: NewsItem) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = addBookmarkUseCase.addBookmark(newsItem)
-            Log.i(LOG_TAG, "loadNews:BookmarksViewModel result = $result")
             _bookmarksLiveData.postValue(result)
         }
     }
@@ -65,8 +61,6 @@ class HomeViewModel @Inject constructor(
 
     fun loadMoreNews() {
         val currentPage = getCurrentPage()
-        Log.i(LOG_TAG, "loadNews:HomeViewModel PAGE = $currentPage")
-
         _newsLiveData.postValue(NewsLoading)
         viewModelScope.launch(Dispatchers.IO) {
             val result = loadNewsUseCase.loadNewsByPage(currentPage)

@@ -17,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trd.freenewsapp.R
-import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentHomeBinding
 import com.trd.freenewsapp.homescreen.adapters.HomeAdapter
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
@@ -51,7 +50,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(LOG_TAG, "onCreateView: HOME FRAGMENT")
         binding = initBinding(inflater, container)
         initAdapter()
         initRecyclerView()
@@ -136,10 +134,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
                 }
                 is NewsLoadingSuccess -> {
                     showProgressBar(false)
-                    Log.i(
-                        LOG_TAG,
-                        "observeNewsLoading: HOME FRAGMENT newsState.newsItems = ${newsState.newsItems}"
-                    )
 //                    cachedNews.addAll(newsState.newsItems)
                     if (newsState.newsItems.isEmpty()){
                         toastUtils.showToast("no results")
