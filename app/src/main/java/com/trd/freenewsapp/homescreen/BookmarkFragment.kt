@@ -62,7 +62,13 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         FragmentBookmarksBinding.inflate(inflater, container, false)
 
     private fun initAdapter() {
-        adapter = BookmarksAdapter(requireContext(), imageLoader, this, this, this, this)
+        adapter = BookmarksAdapter(
+            imageLoader,
+            bookmarkButtonListener = this,
+            shareButtonsListener = this,
+            sourceButtonsListener = this,
+            searchNoMatchesListener = this
+        )
     }
 
     private fun loadBookmarks() {

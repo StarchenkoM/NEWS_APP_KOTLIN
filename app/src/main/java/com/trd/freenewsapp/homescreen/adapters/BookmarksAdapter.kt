@@ -1,6 +1,5 @@
 package com.trd.freenewsapp.homescreen.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -15,7 +14,6 @@ import com.trd.freenewsapp.utils.ImageLoader
 
 
 class BookmarksAdapter(
-    private val context: Context,
     private val imageLoader: ImageLoader,
     private val bookmarkButtonListener: BookmarkButtonListener,
     private val shareButtonsListener: ShareButtonsListener,
@@ -58,18 +56,8 @@ class BookmarksAdapter(
         return object : Filter() {
             override fun performFiltering(pattern: CharSequence?): FilterResults {
                 currentPattern = pattern
-                val filteredList = mutableListOf<NewsItem>()
-                if (pattern.isNullOrBlank()) {
-                    filteredList.addAll(newsItemsFiltered)
-                } else {
-                    val searchPattern = pattern.toString().lowercase().trim()
-                    val filtered =
-                        newsItemsFiltered.filter { it.title.lowercase().contains(searchPattern) }
-                    filteredList.addAll(filtered)
-                }
-
                 val filterResults = FilterResults()
-                filterResults.values = filteredList
+                filterResults.values = provideFilteredList(pattern)
                 return filterResults
             }
 
@@ -82,6 +70,19 @@ class BookmarksAdapter(
             }
 
         }
+    }
+
+    private fun provideFilteredList(pattern: CharSequence?): MutableList<NewsItem> {
+        val filteredList = mutableListOf<NewsItem>()
+        if (pattern.isNullOrBlank()) {
+            filteredList.addAll(newsItemsFiltered)
+        } else {
+            val searchPattern = pattern.toString().lowercase().trim()
+            val filtered =
+                newsItemsFiltered.filter { it.title.lowercase().contains(searchPattern) }
+            filteredList.addAll(filtered)
+        }
+        return filteredList
     }
 
     private fun handleSearchNoMatches(result: List<NewsItem>) {

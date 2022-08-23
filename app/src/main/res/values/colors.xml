@@ -20,6 +20,7 @@
     <color name="background">#F5F5F5</color>
     <color name="background_shadow">#EDEDED</color>
 
+    <color name="transparent">#00FFFFFF</color>
 
 
     <color name="newsapp_accent_active">#DAB308</color>
