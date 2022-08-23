@@ -23,7 +23,7 @@
     <color name="transparent">#00FFFFFF</color>
 
 
-    <color name="newsapp_accent_active">#DAB308</color>
+<!--    <color name="newsapp_accent_active">#DAB308</color>
     <color name="newsapp_primary_01">#027DA4</color>
     <color name="newsapp_primary_02">#306474</color>
     <color name="newsapp_primary_03">#F2FAFF</color>
@@ -33,5 +33,5 @@
     <color name="newsapp_neutral_03">#F1F4F5</color>
     <color name="text_color">#0F0F0F</color>
     <color name="newsapp_error">#CA4D31</color>
-    <color name="newsapp_date_picker_header_background">#306474</color>
+    <color name="newsapp_date_picker_header_background">#306474</color>-->
 </resources>
