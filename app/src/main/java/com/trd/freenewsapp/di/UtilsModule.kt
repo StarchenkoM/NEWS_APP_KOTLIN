@@ -25,4 +25,8 @@ class UtilsModule {
     @Provides
     fun provideWebViewLoader(): WebViewLoader = WebViewLoaderImpl()
 
+    @Provides
+    fun provideNetworkHelper(@ApplicationContext context: Context): NetworkHelper =
+        NetworkHelperImpl(context)
+
 }
