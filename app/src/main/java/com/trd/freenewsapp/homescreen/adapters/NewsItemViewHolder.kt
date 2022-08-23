@@ -20,6 +20,8 @@ class NewsItemViewHolder(
     private val sourceButtonsListener: SourceButtonsListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private val context = binding.root
+
     fun bind(item: NewsItem) {
         setNewsItemComponents(item)
         handleBookmarkIconClick(item)
@@ -61,6 +63,7 @@ class NewsItemViewHolder(
             if (item.description.isNullOrBlank()) getMessage(NO_TITLE_DESCRIPTION) else item.description
         binding.sourceTv.text =
             if (item.sourceUrl.isNullOrBlank()) getMessage(NO_SOURCE_MESSAGE) else item.sourceUrl
+        binding.icBookmarkItem.setColorFilter(context.resources.getColor(R.color.icons_color_selector))
     }
 
     private fun getMessage(@StringRes messageId: Int): String {
