@@ -14,5 +14,6 @@
     <string name="no_source_message">No source info for this news</string>
     <string name="bookmarks_title">BOOKMARKS</string>
     <string name="share_news_message">Share news</string>
+    <string name="no_matches_found">No matches found</string>
 
 </resources>

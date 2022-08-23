@@ -21,6 +21,7 @@ import com.trd.freenewsapp.databinding.FragmentBookmarksBinding
 import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
 import com.trd.freenewsapp.homescreen.adapters.NewsItem
 import com.trd.freenewsapp.listeners.BookmarkButtonListener
+import com.trd.freenewsapp.listeners.SearchNoMatchesListener
 import com.trd.freenewsapp.listeners.ShareButtonsListener
 import com.trd.freenewsapp.listeners.SourceButtonsListener
 import com.trd.freenewsapp.states.BookmarksState.*
@@ -32,7 +33,7 @@ import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
-    ShareButtonsListener/*, NoMatchesFoundListener*/ {
+    ShareButtonsListener, SearchNoMatchesListener {
     private var binding by Delegates.notNull<FragmentBookmarksBinding>()
     private val viewModel: BookmarksViewModel by viewModels()
     private var adapter: BookmarksAdapter? = null
@@ -64,7 +65,7 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         FragmentBookmarksBinding.inflate(inflater, container, false)
 
     private fun initAdapter() {
-        adapter = BookmarksAdapter(requireContext(), imageLoader, this, this, this)
+        adapter = BookmarksAdapter(requireContext(), imageLoader, this, this, this, this)
 //        binding.bookmarksRecyclerView.layoutManager = LinearLayoutManager(context)
 //        binding.bookmarksRecyclerView.adapter = adapter
     }
@@ -203,9 +204,9 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_news_message)))
     }
 
-    /*override fun noMatchesFound(noMatchesFound: Boolean) {
-        binding.noUserFoundTextView.isVisible = noMatchesFound
-    }*/
+    override fun searchNoMatches(isMatchesFound: Boolean) {
+        binding.noMatchesTv.isVisible = isMatchesFound
+    }
 
 
 }
