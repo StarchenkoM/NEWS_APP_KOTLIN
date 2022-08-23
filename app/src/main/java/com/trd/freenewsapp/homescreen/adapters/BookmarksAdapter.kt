@@ -20,11 +20,8 @@ class BookmarksAdapter(
     private val sourceButtonsListener: SourceButtonsListener,
     private val searchNoMatchesListener: SearchNoMatchesListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
-    private var newsItems: MutableList<NewsItem> = mutableListOf()
-    private var newsItemsFiltered: MutableList<NewsItem> = mutableListOf()
-
-
-    private var items: MutableList<NewsItem> = mutableListOf()
+    private var newsItems: List<NewsItem> = listOf()
+    private var newsItemsFiltered: List<NewsItem> = listOf()
     private var currentPattern: CharSequence? = null
 
 
@@ -40,16 +37,15 @@ class BookmarksAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentItem = newsItems[position]
+        val currentItem = newsItemsFiltered[position]
         (holder as BookmarksViewHolder).bind(currentItem)
     }
 
-    override fun getItemCount(): Int = newsItems.size
+    override fun getItemCount(): Int = newsItemsFiltered.size
 
     fun setData(items: List<NewsItem>) {
-        newsItems = items.toMutableList()
-        newsItemsFiltered.addAll(items)
-        notifyDataSetChanged()
+        newsItems = items.asReversed()
+        filter.filter(currentPattern)
     }
 
     override fun getFilter(): Filter {
@@ -63,30 +59,28 @@ class BookmarksAdapter(
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
                 val filteredItems = filterResults?.values as List<NewsItem>
-                newsItems.clear()
-                newsItems.addAll(filteredItems)
+                newsItemsFiltered = filteredItems.toMutableList()
                 handleSearchNoMatches(filteredItems)
                 notifyDataSetChanged()
             }
-
         }
     }
 
-    private fun provideFilteredList(pattern: CharSequence?): MutableList<NewsItem> {
-        val filteredList = mutableListOf<NewsItem>()
-        if (pattern.isNullOrBlank()) {
-            filteredList.addAll(newsItemsFiltered)
+    private fun provideFilteredList(pattern: CharSequence?): List<NewsItem> {
+        return if (pattern.isNullOrBlank()) {
+            newsItems
         } else {
-            val searchPattern = pattern.toString().lowercase().trim()
-            val filtered =
-                newsItemsFiltered.filter { it.title.lowercase().contains(searchPattern) }
-            filteredList.addAll(filtered)
+            searchByPattern(pattern)
         }
-        return filteredList
+    }
+
+    private fun searchByPattern(pattern: CharSequence): List<NewsItem> {
+        val searchPattern = pattern.toString().lowercase().trim()
+        return newsItemsFiltered.filter { it.title.lowercase().contains(searchPattern) }
     }
 
     private fun handleSearchNoMatches(result: List<NewsItem>) {
-        val isMatchesFound = (currentPattern?.isNotEmpty() == true && result.isEmpty() )
+        val isMatchesFound = (currentPattern?.isNotEmpty() == true && result.isEmpty())
         searchNoMatchesListener.searchNoMatches(isMatchesFound)
     }
 

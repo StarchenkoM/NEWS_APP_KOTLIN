@@ -110,8 +110,8 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     }
 
     private fun loadNews() {
-//        viewModel.loadNews()
-        testData()
+        viewModel.loadNews()
+//        testData()
     }
 
     private fun testData() {

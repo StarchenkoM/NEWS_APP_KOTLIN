@@ -2,11 +2,10 @@ package com.trd.freenewsapp.data
 
 import com.google.gson.annotations.SerializedName
 
-//@Parcelize
 data class NewsApiResponse(
     @SerializedName("articles")
     val articles: List<ArticleItemApi>,
-    )
+)
 
 data class ArticleItemApi(
     @SerializedName("source")
