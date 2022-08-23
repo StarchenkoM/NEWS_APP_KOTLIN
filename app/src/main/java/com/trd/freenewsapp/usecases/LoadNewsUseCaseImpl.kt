@@ -1,7 +1,7 @@
 package com.trd.freenewsapp.usecases
 
-import com.trd.freenewsapp.states.NewsState
 import com.trd.freenewsapp.repository.HomeScreenRepository
+import com.trd.freenewsapp.states.NewsState
 
 class LoadNewsUseCaseImpl(private val repository: HomeScreenRepository) : LoadNewsUseCase {
     override suspend fun loadNews(): NewsState {

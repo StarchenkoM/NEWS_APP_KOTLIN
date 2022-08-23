@@ -43,17 +43,6 @@ class HomeScreenRepositoryImpl(
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }
 
-    private suspend fun handleApiLoadingByPage(page: Int): NewsState {
-        val articlesApi = getNewsFromApi().body()?.articles
-        Log.i(
-            Constants.LOG_TAG,
-            "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
-        )
-        val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
-//        articlesApi?.let { putArticlesToDB(it) }
-        return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
-    }
-
     override suspend fun getNewsFromApiByQuery(query: String): Response<NewsApiResponse> {
         return RetrofitInstance.api.getNewsByQuery(query = query)
     }
@@ -65,7 +54,6 @@ class HomeScreenRepositoryImpl(
             "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
         )
         val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
-//        articlesApi?.let { putArticlesToDB(it) }
         return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
     }
 }

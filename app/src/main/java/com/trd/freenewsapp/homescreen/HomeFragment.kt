@@ -64,18 +64,22 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
 
     private fun initSearch() {
         val searchView = binding.searchHome
+        setSearchElementColors(searchView)
+        setOnQueryTextListener(searchView)
+    }
+
+    private fun setSearchElementColors(searchView: SearchView) {
+        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
+
         val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
         val searchEditText =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
 
-        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
         searchEditText.setTextColor(elementsColor)
         searchEditText.setHintTextColor(elementsColor)
         searchIcon.setColorFilter(elementsColor)
         closeIcon.setColorFilter(elementsColor)
-
-        setOnQueryTextListener(searchView)
     }
 
     private fun setOnQueryTextListener(searchView: SearchView) {
@@ -112,18 +116,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
 
     private fun loadNews() {
         viewModel.loadNews()
-//        testData()
-    }
-
-    private fun testData() {
-        adapter?.setData(
-            listOf(
-                NewsItem("first"),
-                NewsItem("red"),
-                NewsItem("hello2"),
-                NewsItem("hello3")
-            )
-        )
     }
 
     private fun initObservers() {
@@ -148,8 +140,11 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
                         LOG_TAG,
                         "observeNewsLoading: HOME FRAGMENT newsState.newsItems = ${newsState.newsItems}"
                     )
-                    cachedNews.addAll(newsState.newsItems)
-                    adapter?.setData(cachedNews)
+//                    cachedNews.addAll(newsState.newsItems)
+                    if (newsState.newsItems.isEmpty()){
+                        toastUtils.showToast("no results")
+                    }
+                    adapter?.setData(newsState.newsItems)
                 }
             }
         }

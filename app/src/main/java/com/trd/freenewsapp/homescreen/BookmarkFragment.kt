@@ -73,20 +73,7 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun loadBookmarks() {
         viewModel.loadBookmarks()
-//        testData()
     }
-
-    private fun testData() {
-        adapter?.setData(
-            listOf(
-                NewsItem("first"),
-                NewsItem("red"),
-                NewsItem("hello2"),
-                NewsItem("hello3")
-            )
-        )
-    }
-
 
     private fun initRecyclerView() {
         binding.bookmarksRecyclerView.apply {
@@ -98,18 +85,22 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
 
     private fun initSearch() {
         val searchView = binding.searchBookmarks
+        setSearchElementColors(searchView)
+        setOnQueryTextListener(searchView)
+    }
+
+    private fun setSearchElementColors(searchView: SearchView) {
+        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
+
         val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
         val searchEditText =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
 
-        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
         searchEditText.setTextColor(elementsColor)
         searchEditText.setHintTextColor(elementsColor)
         searchIcon.setColorFilter(elementsColor)
         closeIcon.setColorFilter(elementsColor)
-
-        setOnQueryTextListener(searchView)
     }
 
     private fun setOnQueryTextListener(searchView: SearchView) {
@@ -135,21 +126,23 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
             when (bookmarkState) {
                 is BookmarksLoadingError -> {
                     showProgressBar(false)
+                    binding.emptyBookmarksTv.isVisible = true
                 }
                 is BookmarksLoading -> {
                     showProgressBar(true)
                 }
                 is BookmarksLoadingSuccess -> {
                     showProgressBar(false)
+                    binding.emptyBookmarksTv.isVisible = bookmarkState.bookmarks.isNullOrEmpty()
                     adapter?.setData(bookmarkState.bookmarks)
                 }
                 is BookmarkAdded -> {
                     showProgressBar(false)
-                    toastUtils.showToast("bookmark added BOOKMARK FRAGMENT")
+                    toastUtils.showToast("bookmark added")
                 }
                 is BookmarkRemoved -> {
                     showProgressBar(false)
-                    toastUtils.showToast("bookmark removed BOOKMARK FRAGMENT")
+                    toastUtils.showToast("bookmark removed")
                 }
             }
         }

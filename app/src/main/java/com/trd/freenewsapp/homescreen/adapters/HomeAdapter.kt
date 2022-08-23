@@ -20,13 +20,17 @@ class HomeAdapter(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var newsItems: List<NewsItem> = listOf()
-    private var items: MutableList<NewsItem> = mutableListOf()
-    private var _currentPattern: CharSequence? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = NewsItemBinding.inflate(LayoutInflater.from(context), parent, false)
-        return NewsItemViewHolder(binding, imageLoader, bookmarkButtonListener, shareButtonsListener, sourceButtonsListener)
+        return NewsItemViewHolder(
+            binding,
+            imageLoader,
+            bookmarkButtonListener,
+            shareButtonsListener,
+            sourceButtonsListener
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -39,7 +43,6 @@ class HomeAdapter(
     fun setData(items: List<NewsItem>) {
         newsItems = items
         notifyDataSetChanged()
-//        this.items = items as MutableList<NewsItem>
     }
 
 }

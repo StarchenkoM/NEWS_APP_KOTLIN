@@ -22,37 +22,17 @@ class HomeScreen : AppCompatActivity() {
         binding = ActivityHomeScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initializeBottomNavigation()
-//        initNavigation()
     }
-
-/*    private fun initializeBottomNavigation() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-//        binding.bottomNavBar.setOnItemReselectedListener { item ->
-        binding.bottomNavBar.setOnItemReselectedListener { item ->
-            Log.i(LOG_TAG, "HOMESCREEN initializeBottomNavigation() item = ${item.itemId}")
-            if (item.itemId != binding.bottomNavBar.selectedItemId) {
-                NavigationUI.onNavDestinationSelected(item, navController)
-            }
-        }
-        binding.bottomNavBar.setupWithNavController(navController)
-    }*/
 
     private fun initializeBottomNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-//        binding.bottomNavBar.setOnItemReselectedListener { item ->
-//        binding.bottomNavBar.setOnNavigationItemSelectedListener  { item ->
-        binding.bottomNavBar.setOnItemSelectedListener  { item ->
+        binding.bottomNavBar.setOnItemSelectedListener { item ->
             Log.i(LOG_TAG, "HOMESCREEN initializeBottomNavigation() item = ${item.itemId}")
             NavigationUI.onNavDestinationSelected(item, navController)
         }
         binding.bottomNavBar.setupWithNavController(navController)
     }
-
-
-
 
 }

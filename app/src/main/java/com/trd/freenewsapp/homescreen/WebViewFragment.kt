@@ -5,27 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.EditText
-import android.widget.ImageView
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.trd.freenewsapp.R
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentWebviewBinding
-import com.trd.freenewsapp.homescreen.adapters.BookmarksAdapter
-import com.trd.freenewsapp.homescreen.adapters.NewsItem
-import com.trd.freenewsapp.listeners.BookmarkButtonListener
-import com.trd.freenewsapp.listeners.ShareButtonsListener
-import com.trd.freenewsapp.listeners.SourceButtonsListener
-import com.trd.freenewsapp.states.BookmarksState.*
-import com.trd.freenewsapp.utils.ImageLoader
 import com.trd.freenewsapp.utils.ToastUtils
 import com.trd.freenewsapp.utils.WebViewLoader
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +44,6 @@ class WebViewFragment : Fragment() {
     private fun loadContent() {
         webViewLoader.loadWebView(args.url, binding.webViewContainer)
     }
-
 
 
     private fun showProgressBar(loaded: Boolean) {

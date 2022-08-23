@@ -32,20 +32,22 @@ class NewsItemViewHolder(
 
     private fun handleBookmarkIconClick(item: NewsItem) {
         binding.icBookmarkItem.setOnClickListener {
-            showMessage("handleBookmarkIconClick()")
             bookmarkButtonListener.addBookmark(item)
         }
     }
 
     private fun handleShareIconClick(item: NewsItem) {
-        binding.icShare.setOnClickListener { showMessage("handleShareIconClick()")
+        binding.icShare.setOnClickListener {
             shareButtonsListener.shareBtnClicked(item.articleUrl)
         }
     }
 
     private fun handleGoToSourceIconClick(item: NewsItem) {
         binding.icGoToSource.setOnClickListener {
-            Log.i(LOG_TAG, "handleGoToSourceIconClick: NewsItemViewHolder articleUrl = ${item.articleUrl}")
+            Log.i(
+                LOG_TAG,
+                "handleGoToSourceIconClick: NewsItemViewHolder articleUrl = ${item.articleUrl}"
+            )
             if (item.articleUrl.isNotBlank()) {
                 sourceButtonsListener.sourceBtnClicked(item.articleUrl)
             } else {

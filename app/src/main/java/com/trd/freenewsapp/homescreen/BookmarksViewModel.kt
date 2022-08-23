@@ -37,8 +37,6 @@ class BookmarksViewModel @Inject constructor(
     }
 
 
-
-
     fun addBookmark(newsItem: NewsItem) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = addBookmarkUseCase.addBookmark(newsItem)
