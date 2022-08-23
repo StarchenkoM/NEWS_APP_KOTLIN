@@ -18,7 +18,7 @@
 
 
     <ProgressBar
-        android:id="@+id/bookmarks_loading_progress"
+        android:id="@+id/webview_loading_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

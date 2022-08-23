@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.trd.freenewsapp.constants.Constants.LOG_TAG
 import com.trd.freenewsapp.databinding.FragmentWebviewBinding
@@ -19,6 +20,7 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class WebViewFragment : Fragment() {
     private var binding by Delegates.notNull<FragmentWebviewBinding>()
+    private val viewModel: WebViewViewModel by viewModels()
     private val args: WebViewFragmentArgs by navArgs()
 
     @Inject
@@ -42,12 +44,12 @@ class WebViewFragment : Fragment() {
 
 
     private fun loadContent() {
-        webViewLoader.loadWebView(args.url, binding.webViewContainer)
+        webViewLoader.loadWebView(args.url, binding.webViewContainer, binding.webviewLoadingProgress)
     }
 
 
     private fun showProgressBar(loaded: Boolean) {
-        binding.bookmarksLoadingProgress.isVisible = loaded
+        binding.webviewLoadingProgress.isVisible = loaded
     }
 
 
