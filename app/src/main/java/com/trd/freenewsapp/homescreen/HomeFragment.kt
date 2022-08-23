@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.R.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -69,16 +70,15 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         val searchView = binding.searchHome
         val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-
         val searchEditText =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        val searchViewTextColor = ContextCompat.getColor(requireContext(), R.color.text_color)
-//        val hintTextColor = ContextCompat.getColor(requireContext(), R.color.secondary)
-        searchEditText.setTextColor(searchViewTextColor)
 
-        val color = requireContext().getColor(R.color.text_color)
-        searchIcon.setColorFilter(color)
-        closeIcon.setColorFilter(color)
+        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
+        searchEditText.setTextColor(elementsColor)
+        searchEditText.setHintTextColor(elementsColor)
+        searchIcon.setColorFilter(elementsColor)
+        closeIcon.setColorFilter(elementsColor)
+
         setOnQueryTextListener(searchView)
     }
 
@@ -90,7 +90,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                toastUtils.showToast(newText?:"empty ")
                 return false
             }
         })
@@ -176,7 +175,6 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     }
 
 
-
     override fun addBookmark(newsItem: NewsItem) {
         viewModel.addBookmark(newsItem)
     }
@@ -207,12 +205,12 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         binding.noUserFoundTextView.isVisible = noMatchesFound
     }*/
 
-    private fun scrolledToBottomListener(){
-        binding.newsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+    private fun scrolledToBottomListener() {
+        binding.newsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if(!recyclerView.canScrollVertically(1)){
+                if (!recyclerView.canScrollVertically(1)) {
                     toastUtils.showToast("LAST")
                 }
             }

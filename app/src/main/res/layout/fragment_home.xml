@@ -15,7 +15,8 @@
         android:elevation="@dimen/elevation"
         app:layout_constraintEnd_toEndOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint" />
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -99,16 +99,15 @@ class BookmarkFragment : Fragment(), BookmarkButtonListener, SourceButtonsListen
         val searchView = binding.searchBookmarks
         val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         val closeIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-
         val searchEditText =
             searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        val searchViewTextColor = ContextCompat.getColor(requireContext(), R.color.text_color)
-//        val hintTextColor = ContextCompat.getColor(requireContext(), R.color.secondary)
-        searchEditText.setTextColor(searchViewTextColor)
 
-        val color = requireContext().getColor(R.color.text_color)
-        searchIcon.setColorFilter(color)
-        closeIcon.setColorFilter(color)
+        val elementsColor = ContextCompat.getColor(requireContext(), R.color.text2)
+        searchEditText.setTextColor(elementsColor)
+        searchEditText.setHintTextColor(elementsColor)
+        searchIcon.setColorFilter(elementsColor)
+        closeIcon.setColorFilter(elementsColor)
+
         setOnQueryTextListener(searchView)
     }
 
