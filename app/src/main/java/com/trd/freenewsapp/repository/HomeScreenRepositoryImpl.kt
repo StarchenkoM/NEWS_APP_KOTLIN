@@ -25,11 +25,25 @@ class HomeScreenRepositoryImpl(
         return handleApiLoadingByQuery(query)
     }
 
-    override suspend fun getNewsFromApi(): Response<NewsApiResponse> {
-        return RetrofitInstance.api.getNews()
+    override suspend fun loadNewsByPage(page: Int): NewsState {
+        return handleApiLoading(page)
     }
 
-    private suspend fun handleApiLoading(): NewsState {
+    private suspend fun getNewsFromApi(page: Int = 1): Response<NewsApiResponse> {
+        return RetrofitInstance.api.getNews(page = page.toString())
+    }
+
+    private suspend fun handleApiLoading(page: Int = 1): NewsState {
+        val articlesApi = getNewsFromApi(page).body()?.articles
+        Log.i(
+            Constants.LOG_TAG,
+            "handleApiLoading:HomeScreenRepositoryImpl articlesApi = $articlesApi"
+        )
+        val result = articlesApi?.map { newsMapper.mapApiItemToNewsItem(it) }
+        return result?.let { NewsLoadingSuccess(it) } ?: NewsLoadingError
+    }
+
+    private suspend fun handleApiLoadingByPage(page: Int): NewsState {
         val articlesApi = getNewsFromApi().body()?.articles
         Log.i(
             Constants.LOG_TAG,

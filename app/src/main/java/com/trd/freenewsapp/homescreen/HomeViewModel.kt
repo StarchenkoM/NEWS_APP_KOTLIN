@@ -26,9 +26,10 @@ class HomeViewModel @Inject constructor(
     private val _newsLiveData = MutableLiveData<NewsState>()
     val newsLiveData: LiveData<NewsState> get() = _newsLiveData
 
-//TODO check it
     private val _bookmarksLiveData = MutableLiveData<BookmarksState>()
     val bookmarksLiveData: LiveData<BookmarksState> get() = _bookmarksLiveData
+
+    private var currentPage = 1
 
     fun loadNews() {
         _newsLiveData.postValue(NewsLoading)
@@ -53,6 +54,23 @@ class HomeViewModel @Inject constructor(
             val result = addBookmarkUseCase.addBookmark(newsItem)
             Log.i(LOG_TAG, "loadNews:BookmarksViewModel result = $result")
             _bookmarksLiveData.postValue(result)
+        }
+    }
+
+    private fun getCurrentPage(): Int = if (currentPage == 1) ++currentPage else currentPage
+
+    fun increasePageNumber() {
+        ++currentPage
+    }
+
+    fun loadMoreNews() {
+        val currentPage = getCurrentPage()
+        Log.i(LOG_TAG, "loadNews:HomeViewModel PAGE = $currentPage")
+
+        _newsLiveData.postValue(NewsLoading)
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = loadNewsUseCase.loadNewsByPage(currentPage)
+            _newsLiveData.postValue(result)
         }
     }
 

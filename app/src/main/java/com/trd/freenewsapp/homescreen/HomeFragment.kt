@@ -39,6 +39,7 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
     private var binding by Delegates.notNull<FragmentHomeBinding>()
     private val viewModel: HomeViewModel by viewModels()
     private var adapter: HomeAdapter? = null
+    private val cachedNews = mutableListOf<NewsItem>()
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -130,6 +131,7 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
         observeBookmarks()
     }
 
+
     private fun observeNewsLoading() {
         viewModel.newsLiveData.observe(viewLifecycleOwner) { newsState ->
             when (newsState) {
@@ -146,7 +148,8 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
                         LOG_TAG,
                         "observeNewsLoading: HOME FRAGMENT newsState.newsItems = ${newsState.newsItems}"
                     )
-                    adapter?.setData(newsState.newsItems)
+                    cachedNews.addAll(newsState.newsItems)
+                    adapter?.setData(cachedNews)
                 }
             }
         }
@@ -200,7 +203,9 @@ class HomeFragment : Fragment(), BookmarkButtonListener, SourceButtonsListener,
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    toastUtils.showToast("LAST")
+                    toastUtils.showToast(getString(R.string.loading_news_message))
+                    viewModel.increasePageNumber()
+                    viewModel.loadMoreNews()
                 }
             }
         })
